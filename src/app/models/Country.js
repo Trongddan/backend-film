@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
-const CategorySchema = mongoose.Schema(
+const ContrySchema = mongoose.Schema(
   {
     name: { type: String, unique: true, required: true },
     films: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"film"
-      }
-    ]
+        ref: "film",
+      },
+    ],
   },
   { timeStamps: true }
 );
-module.exports = mongoose.model("category", CategorySchema);
+module.exports = mongoose.model("country", ContrySchema);
