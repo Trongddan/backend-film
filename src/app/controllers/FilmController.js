@@ -6,6 +6,10 @@ const filmController = {
   addFilmController: async (req, res) => {
     try {
       const newFilm = await new Film(req.body);
+      console.log(req.file);
+      if (req.file) {
+        newFilm.poster = req.file.path;
+      }
       const saveFilm = await newFilm.save();
       if (req.body.categories) {
         req.body.categories.map(async (categoryId) => {

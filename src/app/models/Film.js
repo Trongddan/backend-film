@@ -6,18 +6,18 @@ const filmSchema = new mongoose.Schema(
     time: { type: String, required: true },
     numberOfEpisodes: { type: Number, required: true },
     actors: [{ type: String }],
-    poster: { type: String },
+    poster: { type: String, required: true },
     categories: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "category",
-        required:true
+        required: true,
       },
     ],
     country: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "country",
-      required:true
+      required: true,
     },
     produceYear: { type: Number, required: true },
     language: { type: String, required: true },
