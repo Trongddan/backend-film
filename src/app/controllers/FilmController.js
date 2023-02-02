@@ -1,15 +1,28 @@
 const Film = require("../models/Film");
 const Category = require("../models/Category");
 const Country = require("../models/Country");
+const cloudinary = require("../middlewares/cloudinary");
 const filmController = {
   //add a film controller
   addFilmController: async (req, res) => {
     try {
       const newFilm = await new Film(req.body);
-      console.log(req.file);
-      if (req.file) {
-        newFilm.poster = req.file.path;
-      }
+      await cloudinary.uploader.upload(
+        req.file.path,
+        {
+          resource_type: "video",
+          folder: "Phimhay",
+        },
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).send(err);
+          }
+          console.log(result);
+          newFilm.poster = result.url;
+        }
+      );
+
       const saveFilm = await newFilm.save();
       if (req.body.categories) {
         req.body.categories.map(async (categoryId) => {

@@ -11,6 +11,6 @@ app.use(express.json());
 app.use(cors({ origin: "*" }));
 app.use(morgan("common"));
 Router(app);
-app.listen(8000, () => {
+app.listen(8080, () => {
   console.log("server is running");
 });
