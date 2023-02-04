@@ -7,11 +7,13 @@ const filmSchema = new mongoose.Schema(
     numberOfEpisodes: { type: Number, required: true },
     actors: [{ type: String }],
     poster: { type: String, required: true },
+    url: { type: String, required: true },
     categories: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "category",
         required: true,
+
       },
     ],
     country: {

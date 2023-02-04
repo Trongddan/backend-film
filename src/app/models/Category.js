@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 const CategorySchema = mongoose.Schema(
   {
     name: { type: String, unique: true, required: true },
+    ext: { type: String },
     films: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"film"
-      }
-    ]
+        ref: "film",
+      },
+    ],
   },
   { timeStamps: true }
 );

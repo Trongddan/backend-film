@@ -4,6 +4,7 @@ const CategoryController = {
   addCategory: async (req, res) => {
     try {
       const newCategory = await new Category(req.body);
+      newCategory.name = newCategory.name.toLowerCase();
       const savedCategory = await newCategory.save();
       res.status(200).json(savedCategory);
     } catch (error) {
@@ -15,6 +16,17 @@ const CategoryController = {
     try {
       const categories = await Category.find();
       res.status(200).json(categories);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+  getAllFilmByCateName: async (req, res) => {
+    console.log(req.query.cate);
+    try {
+      const films = await Category.findOne({ ext: req.query.cate }).populate(
+        "films"
+      );
+      res.status(200).json(films.films);
     } catch (error) {
       res.status(500).json(error);
     }

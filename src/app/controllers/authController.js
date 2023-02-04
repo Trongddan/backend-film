@@ -45,17 +45,18 @@ const authController = {
   },
   //dang nhap
   login: async (req, res) => {
+    console.log(12);
     try {
       const user = await User.findOne({ username: req.body.username });
       if (!user) {
-        res.status(200).json("wrong user!");
+        res.status(500).json({mess:"tài khoản không tồn tại"});
       }
       const validatePassword = await bcrypt.compare(
         req.body.password,
         user.password
       );
       if (!validatePassword) {
-        res.status(404).json("invalid password");
+        res.status(404).json({mess:"Mật khẩu không chính xác"});
       }
       if (user && validatePassword) {
         const accessToken = authController.generateAccessToken(user);
