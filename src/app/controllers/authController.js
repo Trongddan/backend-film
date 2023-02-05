@@ -45,7 +45,7 @@ const authController = {
   },
   //dang nhap
   login: async (req, res) => {
-    console.log(12);
+
     try {
       const user = await User.findOne({ username: req.body.username });
       if (!user) {
