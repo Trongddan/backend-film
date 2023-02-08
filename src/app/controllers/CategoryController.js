@@ -20,6 +20,7 @@ const CategoryController = {
       res.status(500).json(error);
     }
   },
+  //get film by cate
   getAllFilmByCateName: async (req, res) => {
     console.log(req.query.cate);
     try {
