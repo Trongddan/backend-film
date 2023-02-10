@@ -8,6 +8,7 @@ Database.connect();
 const app = express();
 dotenv.config();
 app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "*" }));
 app.use(morgan("common"));
 Router(app);

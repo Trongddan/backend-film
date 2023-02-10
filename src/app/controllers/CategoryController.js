@@ -6,7 +6,7 @@ const CategoryController = {
       const newCategory = await new Category(req.body);
       newCategory.name = newCategory.name.toLowerCase();
       const savedCategory = await newCategory.save();
-      res.status(200).json(savedCategory);
+      res.status(200).json({mess:"Thêm mới thành công !"});
     } catch (error) {
       res.status(500).json(error);
     }

@@ -7,7 +7,22 @@ const filmController = {
   //add a film controller
   addFilmController: async (req, res) => {
     try {
-      const newFilm = await new Film(req.body);
+      const Listcategory = req.body.categories.split(",");
+      const Listactor = req.body.actors.split(",");
+      // console.log(category);
+      const newFilm = await new Film({
+        name: req.body.name,
+        time:  req.body.time,
+        numberOfEpisodes:  req.body.numberOfEpisodes,
+        poster: null,
+        country:  req.body.country,
+        produceYear:  req.body.produceYear,
+        language:  req.body.language,
+        url: null,
+        actors: Listactor,
+        authors:  req.body.authors,
+        categories: Listcategory,
+      });
       await cloudinary.uploader.upload(
         req.files.url[0].path,
         {
@@ -40,17 +55,17 @@ const filmController = {
           newFilm.poster = result.url;
         }
       );
-
+      console.log(newFilm);
       const saveFilm = await newFilm.save();
       if (req.body.categories) {
-        req.body.categories.map(async (categoryId) => {
+       newFilm.categories.map(async (categoryId) => {
           const category = Category.findById(categoryId);
           await category.updateOne({ $push: { films: saveFilm._id } });
         });
       }
       if (req.body.country) {
         const country = Country.findById(req.body.country);
-        country.updateOne({ $push: { films: saveFilm._id } });
+        await country.updateOne({ $push: { films: saveFilm._id } });
       }
       res.status(200).json("Thêm mới phim thành công");
     } catch (error) {
